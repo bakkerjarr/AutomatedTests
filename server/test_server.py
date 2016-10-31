@@ -19,38 +19,6 @@ from test_logger import TestLogger
 __author__ = "Jarrod N. Bakker"
 
 
-class TestServer:
-    """Responsible for starting experiments as well as listening out
-    for feedback that may be necessary for moving forward through an
-    experiment.
-    """
-
-    # Constants for TCP request handler
-    _HOST = ""  # Symbolic for all available interfaces
-    _PORT = 8088
-
-    def __init__(self, log_file):
-        """Initialise.
-
-        :param log_file: Name of the file to write logging info to.
-        """
-        # Set up logging interface
-        self._log_file = log_file
-        self._logger = TestLogger("TestServer", self._log_file)
-
-    def start_experiments(self):
-        """Start a set of experiments.
-        """
-        self._logger.info("Waiting for DPAE notification...")
-        server = DPAEHandler(self._log_file)
-        result = server.handle(self._HOST, self._PORT)
-        if not result:
-            self._logger.critical("DPAE classifier training completion "
-                                  "notification failed. Exiting...")
-            sys.exit(1)
-        print("It works!")
-
-
 class DPAEHandler:
     """TCP request handler for DPAE classifier training completion
     notification.
@@ -104,6 +72,38 @@ class DPAEHandler:
                 return True
         sckt.close()
         return False
+
+
+class TestServer:
+    """Responsible for starting experiments as well as listening out
+    for feedback that may be necessary for moving forward through an
+    experiment.
+    """
+
+    # Constants for TCP request handler
+    _HOST = ""  # Symbolic for all available interfaces
+    _PORT = 8088
+
+    def __init__(self, log_file):
+        """Initialise.
+
+        :param log_file: Name of the file to write logging info to.
+        """
+        # Set up logging interface
+        self._log_file = log_file
+        self._logger = TestLogger("TestServer", self._log_file)
+
+    def start_experiments(self):
+        """Start a set of experiments.
+        """
+        self._logger.info("Waiting for DPAE notification...")
+        server = DPAEHandler(self._log_file)
+        result = server.handle(self._HOST, self._PORT)
+        if not result:
+            self._logger.critical("DPAE classifier training completion "
+                                  "notification failed. Exiting...")
+            sys.exit(1)
+        print("It works!")
 
 
 if __name__ == "__main__":
