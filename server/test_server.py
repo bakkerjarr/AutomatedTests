@@ -67,8 +67,8 @@ class DPAEHandler:
                                    "socket: {0}".format(err))
                 sckt.close()
                 return False
+            self._logger.info("Received data: {0}".format(data))
             if data == self._DPAE_DONE:
-                print(data)
                 return True
         sckt.close()
         return False
@@ -103,10 +103,9 @@ class TestServer:
             self._logger.critical("DPAE classifier training completion "
                                   "notification failed. Exiting...")
             sys.exit(1)
-        print("It works!")
 
 
 if __name__ == "__main__":
-    log_file = "test_server.txt"
+    log_file = "test_server.log"
     ts = TestServer(log_file)
     ts.start_experiments()
