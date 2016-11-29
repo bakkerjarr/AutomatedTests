@@ -1,0 +1,34 @@
+---
+# Playbook for preparing the hosts on the testbed.
+#
+# WARNING: This playbook will:
+#                   - Kill any tracereplay programs on the load generator.
+#                   - Kill MOSP and Nmeta2DPAE on the DPAE host.
+#                   - Kill ryu-manager on the controller.
+
+# Prepare the load generator
+- hosts: load-generators
+  remote_user: lg1
+  tasks:
+    - name: Kill all tracereplay programs that are currently running.
+      command: "pkill -f tracereplay"
+      ignore_errors: True
+
+# Prepare the DPAE host.
+- hosts: dpae
+  remote_user: dp1
+  tasks:
+    - name: Kill any MOSP programs that are currently running.
+      command: "pkill -f mosp"
+      ignore_errors: True
+    - name: Kill any DPAE programs that are currently running.
+      command: "pkill -f nmeta2dpae.py"
+      ignore_errors: True
+
+# Prepare the machine running the Ryu controller.
+- hosts: controllers
+  remote_user: ct1
+  tasks:
+    - name: Kill all existing Ryu processes.
+      command: "pkill -f ryu-manager"
+      ignore_errors: True

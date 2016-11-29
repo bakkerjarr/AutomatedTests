@@ -1,0 +1,20 @@
+---
+# Playbook for starting the Nmeta2 Controller application.
+
+- hosts: controllers
+  remote_user: ct1
+  tasks:
+    - name: Set PYTHONPATH
+      shell: "PYTHONPATH=."
+      args:
+        chdir: ~/ryu
+
+    - name: Run the Nmeta2 controller application for 25 hours.
+      shell: "nohup ./bin/ryu-manager ~/nmeta2/nmeta2/nmeta2.py --log-config-file ~/nmeta2/nmeta2/ryu_logging.conf &"
+      args:
+        chdir: ~/ryu
+      async: 90000
+      poll: 0
+
+    - name: Pause to allow the switch to connect to the controller.
+      pause: seconds=30
