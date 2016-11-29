@@ -2,7 +2,6 @@
 # Playbook for starting the Nmeta2 Controller application.
 
 - hosts: controllers
-  remote_user: ct1
   tasks:
     - name: Set PYTHONPATH
       shell: "PYTHONPATH=."
