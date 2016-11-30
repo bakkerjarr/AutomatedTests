@@ -8,7 +8,7 @@
       args:
         chdir: ~/ryu
 
-    - name: Run the Nmeta2 controller application for 25 hours.
+    - name: Run the Nmeta2 controller application for up to 25 hours.
       shell: "nohup ./bin/ryu-manager ~/nmeta2/nmeta2/nmeta2.py --log-config-file ~/nmeta2/nmeta2/ryu_logging.conf &"
       args:
         chdir: ~/ryu
