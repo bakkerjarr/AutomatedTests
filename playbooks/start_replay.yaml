@@ -1,0 +1,12 @@
+---
+# Playbook for starting DDoS traffic replay from lg1
+
+- hosts: load-generators
+  tasks:
+    - name: Run tracereplay using a PCAP dataset.
+      command: "sudo tracereplay pcap:modmac_test.pcap int:enp2s0f0"
+      args:
+        chdir: ~/Documents/ISCX2012DDoS
+
+    - name: Pause after the end of the test.
+      pause: seconds=10
