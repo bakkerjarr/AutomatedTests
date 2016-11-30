@@ -3,7 +3,7 @@
 
 - hosts: controllers
   tasks:
-    - name: Set PYTHONPATH
+    - name: Set PYTHONPATH.
       shell: "PYTHONPATH=."
       args:
         chdir: ~/ryu
