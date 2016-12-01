@@ -4,7 +4,7 @@
 - hosts: dpae
   tasks:
     - name: Run MOSP for up to 25 hours.
-      command: "nohup python mosp.py --output-file {{ mosp_outfile }}_mosp.csv --output-path /home/dp1/Documents/mosp_results/ -i 1 &"
+      shell: "nohup python mosp.py --output-file {{ mosp_outfile }}_mosp.csv --output-path /home/dp1/Documents/mosp_results/ -i 1 &"
       args:
         chdir: ~/mosp
       async: 90000
@@ -14,6 +14,8 @@
       pause: seconds=10
 
     - name: Run the Nmeta2 DPAE application for up to  25 hours.
-      shell: "nohup sudo /home/dp1/nmeta2dpae/nmeta2dpae.py >/dev/null 2>&1 &"
+      shell: "nohup sudo /home/dp1/nmeta2dpae/nmeta2dpae/nmeta2dpae.py >/dev/null 2>&1 &"
+      args:
+        chdir: ~/Documents/nmeta2dpae_results
       async: 90000
       poll: 0
