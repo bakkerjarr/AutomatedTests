@@ -1,0 +1,15 @@
+---
+# Playbook for copying config.yaml and main_policy.yaml files onto the
+# controller and DPAE hosts to establish an experiment.
+
+- hosts: controllers
+  tasks:
+    - name: Transfer a Nmeta2 config.yaml file.
+      copy: src=~/AutomatedTests/nmeta2_yaml/{{ contr_config }} dest=~/nmeta2/nmeta2/config/config.yaml
+    - name: Transfer a Nmeta2 main_policy.yaml file.
+      copy: src=~/AutomatedTests/nmeta2_yaml/{{ contr_main_policy }} dest=~/nmeta2/nmeta2/config/main_policy.yaml
+
+- hosts: dpae
+  tasks:
+    - name: Transfer a file for a custom DPAE classifier to load data.
+      copy: src=~/AutomatedTests/nmeta2dpae_datasets/{{ dpae_dataset }} dest=~/nmeta2dpae/nmeta2dpae/classifiers/util/iscx_2012_ddos.py
