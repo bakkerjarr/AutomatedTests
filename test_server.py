@@ -110,12 +110,13 @@ class TestServer:
         os.system(playbook_cmd)
 
         self._logger.info("Copying files to the controller and DPAE.")
-        playbook_cmd = self._ANS_PLYBK + "copy_config_policy.yaml " \
-                       "--extra-vars \"contr_config={0} " + \
-                       "contr_main_policy={1} dpae_dataset={2}\"" + \
-                       "".format(exp_data["contr_config"], exp_data[
-                           "contr_main_policy"], exp_data[
-                           "dpae_dataset"])
+        playbook_cmd = (self._ANS_PLYBK + "copy_config_policy.yaml "
+                                         "--extra-vars "
+                                         "\"contr_config={0} "
+                                         "contr_main_policy={1} "
+                                         "dpae_dataset={2}\"".format(
+            exp_data["contr_config"], exp_data["contr_main_policy"], 
+            exp_data["dpae_dataset"]))
         os.system(playbook_cmd)
 
         self._logger.info("Starting controller application.")
@@ -123,9 +124,9 @@ class TestServer:
         os.system(playbook_cmd)
 
         self._logger.info("Starting DPAE application.")
-        playbook_cmd = self._ANS_PLYBK + "start_dpae.yaml " + \
+        playbook_cmd = (self._ANS_PLYBK + "start_dpae.yaml "
                        "--extra-vars \"mosp_outfile={0}\"".format(
-                           exp_data["mosp_outfile"])
+                           exp_data["mosp_outfile"]))
         os.system(playbook_cmd)
 
         self._logger.info("Waiting for DPAE notification...")
