@@ -106,16 +106,16 @@ class TestServer:
 
         self._logger.info("Killing any existing evaluation processes "
                           "on testbed hosts.")
+        playbook_cmd = self._ANS_PLYBK + "kill_processes.yaml"
+        os.system(playbook_cmd)
+
+        self._logger.info("Copying files to the controller and DPAE.")
         playbook_cmd = self._ANS_PLYBK + "copy_config_policy.yaml " \
                        "--extra-vars \"contr_config={0} " + \
                        "contr_main_policy={1} dpae_dataset={2}\"" + \
                        "".format(exp_data["contr_config"], exp_data[
                            "contr_main_policy"], exp_data[
                            "dpae_dataset"])
-        os.system(playbook_cmd)
-
-        self._logger.info("Copying files to the controller and DPAE.")
-        playbook_cmd = self._ANS_PLYBK + "start_controller.yaml"
         os.system(playbook_cmd)
 
         self._logger.info("Starting controller application.")
@@ -151,5 +151,8 @@ class TestServer:
 if __name__ == "__main__":
     log_file = "test_server.log"
     ts = TestServer(log_file)
-    exp_data = {}
+    exp_data = {"contr_config": "config_active.yaml",
+                "contr_main_policy": "main_policy_nothing_active.yaml",
+                "dpae_dataset": "iscx_2012_ddos_fold_1.py",
+                "mosp_outfile": "active_nothing_fold_1"}
     ts.start_experiments(exp_data)
