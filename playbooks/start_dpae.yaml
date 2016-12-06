@@ -4,9 +4,7 @@
 - hosts: dpae
   tasks:
     - name: Run MOSP for up to 25 hours.
-      shell: "nohup python mosp.py --output-file {{ mosp_outfile }}_mosp.csv --output-path /home/dp1/Documents/mosp_results/ -i 1 &"
-      args:
-        chdir: ~/mosp
+      command: "nohup python ~/mosp/mosp.py --output-file {{ mosp_outfile }}_mosp.csv --output-path /home/dp1/Documents/mosp_results/ &"
       async: 90000
       poll: 0
 
