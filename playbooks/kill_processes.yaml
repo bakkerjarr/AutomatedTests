@@ -6,6 +6,12 @@
 #                   - Kill MOSP and Nmeta2DPAE on the DPAE host.
 #                   - Kill ryu-manager on the controller.
 
+- hosts: servers
+  tasks:
+    - name: Kill any pcounter programs that are currently running.
+      command: "sudo pkill -f pcounter"
+      ignore_errors: True
+
 - hosts: load-generators
   tasks:
     - name: Kill all tracereplay programs that are currently running.

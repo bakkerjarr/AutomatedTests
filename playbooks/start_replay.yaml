@@ -1,6 +1,15 @@
 ---
 # Playbook for starting DDoS traffic replay from lg1
 
+- hosts: servers
+  tasks:
+    - name: Run pcounter on the sink to count the number of packets it receives.
+      shell: "nohup sudo /home/sv1/PacketCounter/pcounter enp2s0f0 &"
+      args:
+        chdir: ~/Documents/pcounter_results
+      async: 90000
+      poll: 0
+
 - hosts: load-generators
   tasks:
     - name: Run tracereplay using a PCAP dataset.
