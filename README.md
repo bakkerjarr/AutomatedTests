@@ -1,2 +1,2 @@
 # AutomatedTests
-Contains playbooks for Ansible and other scripts for running automated tests for evaluating Nmeta2 DDoS detection.
+Contains Ansible playbooks and other scripts for running automated tests to evaluate DDoS detection classifiers on nmeta2.
